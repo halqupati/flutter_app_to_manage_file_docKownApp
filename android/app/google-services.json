@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "155697521412",
+    "project_id": "qualitydoc-e8db7",
+    "storage_bucket": "qualitydoc-e8db7.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:155697521412:android:0430fb88bbfa9d9a652651",
+        "android_client_info": {
+          "package_name": "com.kownsolutions.getx_app"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBSxjkzZP4ejoj04MvpWbBU3H6DqV5Jk_M"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
