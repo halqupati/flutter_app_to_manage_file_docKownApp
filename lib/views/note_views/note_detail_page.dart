@@ -148,12 +148,6 @@ class _NoteDetailPageState extends State<NoteDetailPage> {
                                                     fontWeight: FontWeight.w700
                                                 ),
                                               ),
-                                              Text("Deadline",
-                                                style: TextStyle(
-                                                    fontSize: 18,
-                                                    color:Color(0xFFacacac)
-                                                ),
-                                              )
                                             ],
                                           )
                                         ],),
@@ -174,12 +168,6 @@ class _NoteDetailPageState extends State<NoteDetailPage> {
                                                     fontWeight: FontWeight.w700
                                                 ),
                                               ),
-                                              Text("Prize",
-                                                style: TextStyle(
-                                                    fontSize: 18,
-                                                    color:Color(0xFFacacac)
-                                                ),
-                                              )
                                             ],
                                           )
                                         ],),
@@ -200,12 +188,6 @@ class _NoteDetailPageState extends State<NoteDetailPage> {
                                                     fontWeight: FontWeight.w700
                                                 ),
                                               ),
-                                              Text("Entry",
-                                                style: TextStyle(
-                                                    fontSize: 18,
-                                                    color:Color(0xFFacacac)
-                                                ),
-                                              )
                                             ],
                                           )
                                         ],)
