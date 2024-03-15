@@ -14,12 +14,12 @@ import 'package:getx_app/controller/note_controller.dart';
 import 'package:getx_app/models/note_model.dart';
 import 'package:getx_app/views/note_views/recent_notes_contest.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:path_provider/path_provider.dart';
 import 'package:permission_handler/permission_handler.dart';
 
 import '../product_views/add_product_page.dart';
 import 'dart:io';
 import 'package:http/http.dart' as http;
-
 import 'package:device_info_plus/device_info_plus.dart';
 
 class EditNotePage extends StatefulWidget {
@@ -32,11 +32,12 @@ class EditNotePage extends StatefulWidget {
 class _EditNotePageState extends State<EditNotePage> {
 
   final notesController =Get.find<NotesController>();
-
+  final id =Get.arguments['id'];
   final TextEditingController title =TextEditingController(text: Get.arguments['title']);
   final TextEditingController desc =TextEditingController(text: Get.arguments['description']);
 
-  late File _image ;
+
+  late File _image;
 
   Future<bool> _request_pre(Permission permission) async{
     AndroidDeviceInfo build = await DeviceInfoPlugin().androidInfo;
@@ -61,13 +62,26 @@ class _EditNotePageState extends State<EditNotePage> {
     }
   }
 
+  Future<File> urlToFile(String imageUrl) async {
+    Directory tempDir = await getTemporaryDirectory();
+    String tempPath = tempDir.path;
+    _image = new File('$tempPath' + '.png');
+    http.Response response = await http.get(Uri.parse(imageUrl));
+    await _image.writeAsBytes(response.bodyBytes);
+    return _image;
+  }
+
   Future getImageFromGallery() async{
-
-
+    final pickedFile = await ImagePicker.pickImage(source: ImageSource.gallery);
+    setState(() async {
+      _image = File(pickedFile.path);
+      print(_image!.path);
+    });
   }
 
   @override
-  void initState(){
+  void initState() {
+    urlToFile(Get.arguments['photo']);
     super.initState();
   }
 
@@ -134,6 +148,7 @@ class _EditNotePageState extends State<EditNotePage> {
                       if(title.text.isNotEmpty&&
                           desc.text.isNotEmpty
                       ){
+                        notesController.id=id;
                         notesController.titleText.text=title.text;
                         notesController.descriptionText.text=desc.text;
                         notesController.editNote(File(_image!.path));
@@ -154,7 +169,7 @@ class _EditNotePageState extends State<EditNotePage> {
                     height: 52.h,
                     color: AppConst.kLight,
                     color2: AppConst.kGreen,
-                    text: "Submit")
+                    text: "Edit")
               ],
             ),
           ),
