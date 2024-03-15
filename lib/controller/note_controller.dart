@@ -17,6 +17,7 @@ import 'package:http/http.dart' as http;
 class NotesController extends GetxController{
   var noteList = <Note>[].obs;
   var loading = true.obs;
+  var id;
 
   TextEditingController titleText = TextEditingController();
   TextEditingController descriptionText = TextEditingController();
@@ -54,7 +55,6 @@ class NotesController extends GetxController{
     var picture = http.MultipartFile.fromBytes('photo',File(imageFile!.path).readAsBytesSync(),
         filename: "test.png");
     request.files.add(picture);
-
     var response = await request.send();
     var responseData = await response.stream.toBytes();
     var result = String.fromCharCodes(responseData);
@@ -78,13 +78,13 @@ class NotesController extends GetxController{
       getNotesData();
     }else{
       print(response.statusCode);
-
       throw Exception("Failed to load Notes data");
     }
   }
 
   editNote(File imageFile) async {
-    var request = http.MultipartRequest('PUT',Uri.parse(ApiConstants.baseUrl+ ApiConstants.notesEndpoint));
+    var request = http.MultipartRequest('PUT',Uri.parse
+      (ApiConstants.baseUrl+ ApiConstants.notesEndpoint+ '/${id}/'));
 
     request.fields.addAll({
       "title":titleText.text,
@@ -99,13 +99,9 @@ class NotesController extends GetxController{
     var picture = http.MultipartFile.fromBytes('photo',File(imageFile!.path).readAsBytesSync(),
         filename: "test.png");
     request.files.add(picture);
-
     var response = await request.send();
     var responseData = await response.stream.toBytes();
     var result = String.fromCharCodes(responseData);
-    print(result);
-
-
     /*final noteData = Note(
       title:titleText.text,
       description:descriptionText.text,
@@ -114,7 +110,7 @@ class NotesController extends GetxController{
 /*
     var response = await http.post(Uri.parse('http://192.168.43.1:8800/api/news'),
         body:jsonEncode(noteData.toJson()),headers: {"Content-Type":"application/json"});*/
-    if (response.statusCode == 201){
+    if (response.statusCode == 201 || response.statusCode == 200){
       Get.snackbar("نجاح",
           "لقد تم تعديل الملاحظة",
           backgroundColor: AppConst.kGreen,
@@ -123,7 +119,6 @@ class NotesController extends GetxController{
       getNotesData();
     }else{
       print(response.statusCode);
-
       throw Exception("Failed to load Notes data");
     }
   }

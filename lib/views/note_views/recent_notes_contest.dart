@@ -204,6 +204,7 @@ class _RecentNotesContestState extends State<RecentNotesContest> {
                                                     ],),
                                                   onTap: (){
                                                     Get.toNamed("/editNotePage",arguments: {
+                                                      'id':data.id,
                                                       'title':data.title.toString(),
                                                       'description':data.description.toString(),
                                                       'photo':data.photo.toString(),
