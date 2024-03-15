@@ -73,10 +73,8 @@ class _EditNotePageState extends State<EditNotePage> {
 
   Future getImageFromGallery() async{
     final pickedFile = await ImagePicker.pickImage(source: ImageSource.gallery);
-    setState(() async {
       _image = File(pickedFile.path);
       print(_image!.path);
-    });
   }
 
   @override
